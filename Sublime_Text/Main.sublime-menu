@@ -1,0 +1,15 @@
+[
+	{
+		"caption": "WinCC",
+		"mnemonic": "W",
+		"id": "wincc",
+		"children":
+		[
+			{ "command": "all_tests", "caption": "all.tests"},
+			{ "command": "this_test"},
+			{ "command": "check_control_syntax"},
+			{ "caption": "-", "id":"check"},
+			{ "caption": "Append 'close' flag", "id":"check", "command": "set_close_checked", "checkbox": true}
+		]
+	}
+]

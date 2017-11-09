@@ -1,0 +1,33 @@
+import sublime
+import sublime_plugin
+from threading import Timer
+
+class MyEventListener(sublime_plugin.ViewEventListener):
+	@classmethod
+	def is_applicable(self, settings):
+		return settings.get('syntax') == 'Packages/WinCC/wincc.sublime-syntax';
+
+	@classmethod
+	def applies_to_primary_view_only(self):
+		return True
+
+	def __init__(self, w):
+		self.timer = Timer(0.3, self._parse);
+
+	def on_query_completions(self, prefix, locations):
+		print(locations)
+		return ([["me", "method"]], sublime.INHIBIT_WORD_COMPLETIONS);
+
+
+	def on_modified(self):
+		if self.timer.is_alive():
+			self.timer.cancel();
+
+		self.timer = Timer(0.3, self._parse);
+		self.timer.start();
+
+	def on_load(self):
+		self._parse()
+
+	def _parse(self):
+		print('parse wincc');
